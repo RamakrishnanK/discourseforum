@@ -24,6 +24,7 @@ Discourse::Application.configure do
 
   # Don't Digest assets, makes debugging uglier
   config.assets.digest = false
+  config.serve_static_assets = true
 
   config.assets.debug = true
 
@@ -33,9 +34,19 @@ Discourse::Application.configure do
   config.handlebars.precompile = false
 
   # we recommend you use mailcatcher https://github.com/sj26/mailcatcher
-  config.action_mailer.delivery_method = :smtp
-  config.action_mailer.smtp_settings = { address: "localhost", port: 1025 }
+  # config.action_mailer.delivery_method = :smtp
+  # config.action_mailer.smtp_settings = { address: "localhost:3000", port: 587 }
   config.action_mailer.raise_delivery_errors = true
+  config.action_mailer.delivery_method = :smtp
+   config.action_mailer.smtp_settings = {
+     :address              => "smtp.gmail.com",
+     :port                 => 587,
+    :domain               => 'localhost:3000',
+    :user_name            => 'beaconlms@gmail.com',
+     :password             => 'beaconlms123$',
+     :authentication       => 'plain',
+    :enable_starttls_auto => true  }
+
 
   BetterErrors::Middleware.allow_ip! ENV['TRUSTED_IP'] if ENV['TRUSTED_IP']
 
